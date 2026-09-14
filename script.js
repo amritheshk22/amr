@@ -6,7 +6,7 @@ const theme=document.querySelector('[data-theme-toggle]');
 if(theme) theme.addEventListener('click',()=>{body.classList.toggle('dark');localStorage.setItem('amr-theme',body.classList.contains('dark')?'dark':'light')});
 const menu=document.querySelector('[data-menu]');
 const nav=document.querySelector('nav');
-if(menu&&nav) menu.addEventListener('click',()=>nav.classList.toggle('open'));
+if(menu&&nav){menu.setAttribute('aria-expanded','false');menu.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Close menu':'Open menu');menu.textContent=open?'×':'☰'})}
 if(nav) nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
 const observer=new IntersectionObserver(entries=>entries.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(x=>observer.observe(x));
